@@ -8,7 +8,6 @@ const Usuario = sequelize.define('usuario', {
     primaryKey: true,
     autoIncrement: true
   },
-
   nombres: {
     type: DataTypes.STRING(100),
     allowNull: false
@@ -28,7 +27,7 @@ const Usuario = sequelize.define('usuario', {
     }
   },
 
-  contraseña: {
+  contrasena: {
     type: DataTypes.STRING(255),
     allowNull: false
   },
@@ -38,17 +37,23 @@ const Usuario = sequelize.define('usuario', {
     allowNull: true
   },
 
-  foto: {
+  foto_perfil: {
     type: DataTypes.STRING(255),
     allowNull: true
   },
 
+  // estado: {
+  //   type: DataTypes.BOOLEAN,
+  //   defaultValue: true
+  // },
   estado: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true
-  },
+  type: DataTypes.STRING(30),
+  allowNull: false,
+  defaultValue: 'activo'
+},
 
-  fecha_creacion: {
+
+  fecha_registro: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW
   },
