@@ -1,11 +1,11 @@
-const usuarioService = require('../../services/usuario/usuario.service');
+const profesionalService = require('../../services/profesional/profesional.service');
 const {
-  validarRegistroUsuario,
-  validarLoginUsuario,
-  validarActualizarPerfil
-} = require('../../validators/usuario/usuario.validator');
+  validarRegistroProfesional,
+  validarLoginProfesional,
+  validarPerfilProfesional
+} = require('../../validators/profesional/profesional.validator');
 
-function manejarErrorUsuario(error, res) {
+function manejarErrorProfesional(error, res) {
   if (error.code === 'EMAIL_EXISTS') {
     return res.status(409).json({
       ok: false,
@@ -16,7 +16,7 @@ function manejarErrorUsuario(error, res) {
   if (error.code === 'ROLE_NOT_FOUND') {
     return res.status(500).json({
       ok: false,
-      message: 'No se encontro el rol usuario en la base de datos'
+      message: 'No se encontro el rol profesional en la base de datos'
     });
   }
 
@@ -27,10 +27,10 @@ function manejarErrorUsuario(error, res) {
     });
   }
 
-  if (error.code === 'ROLE_NOT_ALLOWED' || error.code === 'ONLY_USER_ACCOUNT') {
+  if (error.code === 'ROLE_NOT_ALLOWED') {
     return res.status(403).json({
       ok: false,
-      message: 'Este endpoint solo permite cuentas de usuario'
+      message: 'Este endpoint solo permite cuentas profesionales'
     });
   }
 
@@ -55,6 +55,20 @@ function manejarErrorUsuario(error, res) {
     });
   }
 
+  if (error.code === 'ONLY_PROFESSIONAL_ACCOUNT') {
+    return res.status(403).json({
+      ok: false,
+      message: 'Solo una cuenta profesional puede gestionar un perfil profesional'
+    });
+  }
+
+  if (error.code === 'PROFESSIONAL_PROFILE_NOT_FOUND') {
+    return res.status(404).json({
+      ok: false,
+      message: 'Perfil profesional no encontrado'
+    });
+  }
+
   return res.status(500).json({
     ok: false,
     message: 'Error interno del servidor'
@@ -63,7 +77,7 @@ function manejarErrorUsuario(error, res) {
 
 async function registrar(req, res) {
   try {
-    const errores = validarRegistroUsuario(req.body);
+    const errores = validarRegistroProfesional(req.body);
 
     if (errores.length > 0) {
       return res.status(400).json({
@@ -72,21 +86,21 @@ async function registrar(req, res) {
       });
     }
 
-    const usuario = await usuarioService.registrarUsuario(req.body);
+    const profesional = await profesionalService.registrarProfesional(req.body);
 
     return res.status(201).json({
       ok: true,
-      message: 'Usuario registrado correctamente',
-      data: usuario
+      message: 'Profesional registrado correctamente',
+      data: profesional
     });
   } catch (error) {
-    return manejarErrorUsuario(error, res);
+    return manejarErrorProfesional(error, res);
   }
 }
 
 async function login(req, res) {
   try {
-    const errores = validarLoginUsuario(req.body);
+    const errores = validarLoginProfesional(req.body);
 
     if (errores.length > 0) {
       return res.status(400).json({
@@ -95,7 +109,7 @@ async function login(req, res) {
       });
     }
 
-    const resultado = await usuarioService.loginUsuario(req.body);
+    const resultado = await profesionalService.loginProfesional(req.body);
 
     return res.status(200).json({
       ok: true,
@@ -103,30 +117,29 @@ async function login(req, res) {
       data: resultado
     });
   } catch (error) {
-    return manejarErrorUsuario(error, res);
+    return manejarErrorProfesional(error, res);
   }
 }
 
-async function obtenerPerfil(req, res) {
+async function obtenerPerfilProfesional(req, res) {
   try {
     const { id_usuario } = req.usuario;
-
-    const perfil = await usuarioService.obtenerPerfil(id_usuario);
+    const perfil = await profesionalService.obtenerPerfilProfesional(id_usuario);
 
     return res.status(200).json({
       ok: true,
-      message: 'Perfil obtenido correctamente',
+      message: 'Perfil profesional obtenido correctamente',
       data: perfil
     });
   } catch (error) {
-    return manejarErrorUsuario(error, res);
+    return manejarErrorProfesional(error, res);
   }
 }
 
-async function actualizarPerfil(req, res) {
+async function actualizarPerfilProfesional(req, res) {
   try {
     const { id_usuario } = req.usuario;
-    const { errores, data } = validarActualizarPerfil(req.body);
+    const { errores, data } = validarPerfilProfesional(req.body);
 
     if (errores.length > 0) {
       return res.status(400).json({
@@ -135,21 +148,21 @@ async function actualizarPerfil(req, res) {
       });
     }
 
-    const usuario = await usuarioService.actualizarPerfilUsuario(id_usuario, data);
+    const perfil = await profesionalService.actualizarPerfilProfesional(id_usuario, data);
 
     return res.status(200).json({
       ok: true,
-      message: 'Perfil actualizado correctamente',
-      data: usuario
+      message: 'Perfil profesional actualizado correctamente',
+      data: perfil
     });
   } catch (error) {
-    return manejarErrorUsuario(error, res);
+    return manejarErrorProfesional(error, res);
   }
 }
 
 module.exports = {
   registrar,
   login,
-  obtenerPerfil,
-  actualizarPerfil
+  obtenerPerfilProfesional,
+  actualizarPerfilProfesional
 };

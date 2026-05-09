@@ -16,22 +16,20 @@ function verificarToken(req, res, next) {
     if (partes.length !== 2 || partes[0] !== 'Bearer') {
       return res.status(401).json({
         ok: false,
-        message: 'Formato de token inválido'
+        message: 'Formato de token invalido'
       });
     }
 
     const token = partes[1];
-
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     req.usuario = decoded;
 
     next();
-
   } catch (error) {
     return res.status(401).json({
       ok: false,
-      message: 'Token inválido o expirado'
+      message: 'Token invalido o expirado'
     });
   }
 }
