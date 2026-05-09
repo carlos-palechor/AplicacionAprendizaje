@@ -6,6 +6,7 @@ require('dotenv').config();
 const sequelize = require('./configs/database');
 require('./models/associations');
 const authRoutes = require('./routes/auth/auth.routes');
+const usuarioRoutes = require('./routes/auth/usuario/usuario.routes');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Rutas
 app.use('/api/auth', authRoutes);
+app.use('/api/usuario', usuarioRoutes);
 
 // Ruta base de prueba
 app.get('/', (req, res) => {
