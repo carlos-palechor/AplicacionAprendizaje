@@ -1,4 +1,6 @@
 const CAMPOS_PERMITIDOS_PERFIL_PROFESIONAL = [
+  'nombres',
+  'apellidos',
   'universidad',
   'titulo_profesional',
   'especializacion',
@@ -7,51 +9,12 @@ const CAMPOS_PERMITIDOS_PERFIL_PROFESIONAL = [
   'disponibilidad'
 ];
 
-function validarRegistroProfesional(data) {
-  const errores = [];
-  const body = data || {};
-
-  if (!body.nombres || body.nombres.trim() === '') {
-    errores.push('El campo nombres es obligatorio');
-  }
-
-  if (!body.apellidos || body.apellidos.trim() === '') {
-    errores.push('El campo apellidos es obligatorio');
-  }
-
-  if (!body.correo || body.correo.trim() === '') {
-    errores.push('El campo correo es obligatorio');
-  }
-
-  if (!body.contrasena || body.contrasena.trim() === '') {
-    errores.push('El campo contrasena es obligatorio');
-  }
-
-  if (body.id_rol !== undefined || body.tipo_cuenta !== undefined) {
-    errores.push('No se permite enviar rol ni tipo_cuenta en este endpoint');
-  }
-
-  return errores;
-}
-
-function validarLoginProfesional(data) {
-  const errores = [];
-  const body = data || {};
-
-  if (!body.correo || body.correo.trim() === '') {
-    errores.push('El campo correo es obligatorio');
-  }
-
-  if (!body.contrasena || body.contrasena.trim() === '') {
-    errores.push('El campo contrasena es obligatorio');
-  }
-
-  return errores;
-}
-
 const CAMPOS_NO_PERMITIDOS = [
   'id_profesional',
-  'id_usuario',
+  'id_rol',
+  'correo',
+  'contrasena',
+  'tipo_cuenta',
   'verificado'
 ];
 
@@ -105,7 +68,5 @@ function validarPerfilProfesional(data, opciones = {}) {
 }
 
 module.exports = {
-  validarRegistroProfesional,
-  validarLoginProfesional,
   validarPerfilProfesional
 };

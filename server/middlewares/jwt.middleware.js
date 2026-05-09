@@ -23,7 +23,7 @@ function verificarToken(req, res, next) {
     const token = partes[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.usuario = decoded;
+    req.auth = decoded;
 
     next();
   } catch (error) {

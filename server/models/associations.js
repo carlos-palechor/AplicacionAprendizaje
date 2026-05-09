@@ -1,5 +1,5 @@
 const Rol = require('./rol.model');
-const Usuario = require('./usuario.model');
+const Estudiante = require('./estudiante.model');
 const Profesional = require('./profesional.model');
 const CategoriaServicio = require('./categoria_servicio.model');
 const Servicio = require('./servicio.model');
@@ -7,22 +7,22 @@ const SolicitudServicio = require('./solicitud_servicio.model');
 const Mensaje = require('./mensaje.model');
 const Calificacion = require('./calificacion.model');
 
-// Rol - Usuario
-Rol.hasMany(Usuario, {
+// Rol - Estudiante
+Rol.hasMany(Estudiante, {
   foreignKey: 'id_rol'
 });
 
-Usuario.belongsTo(Rol, {
+Estudiante.belongsTo(Rol, {
   foreignKey: 'id_rol'
 });
 
-// Usuario - Profesional
-Usuario.hasOne(Profesional, {
-  foreignKey: 'id_usuario'
+// Rol - Profesional
+Rol.hasMany(Profesional, {
+  foreignKey: 'id_rol'
 });
 
-Profesional.belongsTo(Usuario, {
-  foreignKey: 'id_usuario'
+Profesional.belongsTo(Rol, {
+  foreignKey: 'id_rol'
 });
 
 // Profesional - Servicio
@@ -43,13 +43,13 @@ Servicio.belongsTo(CategoriaServicio, {
   foreignKey: 'id_categoria'
 });
 
-// Usuario - SolicitudServicio
-Usuario.hasMany(SolicitudServicio, {
-  foreignKey: 'id_usuario'
+// Estudiante - SolicitudServicio
+Estudiante.hasMany(SolicitudServicio, {
+  foreignKey: 'id_estudiante'
 });
 
-SolicitudServicio.belongsTo(Usuario, {
-  foreignKey: 'id_usuario'
+SolicitudServicio.belongsTo(Estudiante, {
+  foreignKey: 'id_estudiante'
 });
 
 // Servicio - SolicitudServicio
@@ -70,13 +70,13 @@ Mensaje.belongsTo(SolicitudServicio, {
   foreignKey: 'id_solicitud'
 });
 
-// Usuario - Mensaje
-Usuario.hasMany(Mensaje, {
-  foreignKey: 'id_usuario'
+// Estudiante - Mensaje
+Estudiante.hasMany(Mensaje, {
+  foreignKey: 'id_estudiante'
 });
 
-Mensaje.belongsTo(Usuario, {
-  foreignKey: 'id_usuario'
+Mensaje.belongsTo(Estudiante, {
+  foreignKey: 'id_estudiante'
 });
 
 // SolicitudServicio - Calificacion
@@ -90,7 +90,7 @@ Calificacion.belongsTo(SolicitudServicio, {
 
 module.exports = {
   Rol,
-  Usuario,
+  Estudiante,
   Profesional,
   CategoriaServicio,
   Servicio,

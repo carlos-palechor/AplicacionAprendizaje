@@ -1,54 +1,10 @@
-function validarRegistroUsuario(data) {
-  const errores = [];
-  const body = data || {};
-
-  if (!body.nombres || body.nombres.trim() === '') {
-    errores.push('El campo nombres es obligatorio');
-  }
-
-  if (!body.apellidos || body.apellidos.trim() === '') {
-    errores.push('El campo apellidos es obligatorio');
-  }
-
-  if (!body.correo || body.correo.trim() === '') {
-    errores.push('El campo correo es obligatorio');
-  }
-
-  if (!body.contrasena || body.contrasena.trim() === '') {
-    errores.push('El campo contrasena es obligatorio');
-  }
-
-  if (body.id_rol !== undefined || body.tipo_cuenta !== undefined) {
-    errores.push('No se permite enviar rol ni tipo_cuenta en este endpoint');
-  }
-
-  return errores;
-}
-
-function validarLoginUsuario(data) {
-  const errores = [];
-  const body = data || {};
-
-  if (!body.correo || body.correo.trim() === '') {
-    errores.push('El campo correo es obligatorio');
-  }
-
-  if (!body.contrasena || body.contrasena.trim() === '') {
-    errores.push('El campo contrasena es obligatorio');
-  }
-
-  return errores;
-}
-
 const CAMPOS_PERMITIDOS_ACTUALIZAR_PERFIL = [
   'nombres',
-  'apellidos',
-  'telefono',
-  'foto_perfil'
+  'apellidos'
 ];
 
 const CAMPOS_SENSIBLES = [
-  'id_usuario',
+  'id_estudiante',
   'id_rol',
   'contrasena',
   'correo',
@@ -102,7 +58,5 @@ function validarActualizarPerfil(data) {
 }
 
 module.exports = {
-  validarRegistroUsuario,
-  validarLoginUsuario,
   validarActualizarPerfil
 };

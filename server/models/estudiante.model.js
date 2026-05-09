@@ -2,8 +2,8 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../configs/database');
 const Rol = require('./rol.model');
 
-const Profesional = sequelize.define('profesional', {
-  id_profesional: {
+const Estudiante = sequelize.define('estudiante', {
+  id_estudiante: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
@@ -12,7 +12,7 @@ const Profesional = sequelize.define('profesional', {
   id_rol: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    defaultValue: 2,
+    defaultValue: 1,
     references: {
       model: Rol,
       key: 'id_rol'
@@ -41,46 +41,10 @@ const Profesional = sequelize.define('profesional', {
   contrasena: {
     type: DataTypes.STRING(255),
     allowNull: false
-  },
-
-  universidad: {
-    type: DataTypes.STRING(150),
-    allowNull: true
-  },
-
-  titulo_profesional: {
-    type: DataTypes.STRING(150),
-    allowNull: true
-  },
-
-  especializacion: {
-    type: DataTypes.STRING(150),
-    allowNull: true
-  },
-
-  descripcion_perfil: {
-    type: DataTypes.TEXT,
-    allowNull: true
-  },
-
-  linkedin_url: {
-    type: DataTypes.STRING(255),
-    allowNull: true
-  },
-
-  disponibilidad: {
-    type: DataTypes.STRING(100),
-    allowNull: true
-  },
-
-  verificado: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false
   }
-
 }, {
-  tableName: 'profesional',
+  tableName: 'estudiante',
   timestamps: false
 });
 
-module.exports = Profesional;
+module.exports = Estudiante;

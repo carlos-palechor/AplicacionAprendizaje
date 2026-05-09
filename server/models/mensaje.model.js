@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../configs/database');
 const SolicitudServicio = require('./solicitud_servicio.model');
-const Usuario = require('./usuario.model');
+const Estudiante = require('./estudiante.model');
 
 const Mensaje = sequelize.define('mensaje', {
   id_mensaje: {
@@ -19,12 +19,12 @@ const Mensaje = sequelize.define('mensaje', {
     }
   },
 
-  id_usuario: {
+  id_estudiante: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: Usuario,
-      key: 'id_usuario'
+      model: Estudiante,
+      key: 'id_estudiante'
     }
   },
 

@@ -5,7 +5,8 @@ require('dotenv').config();
 
 const sequelize = require('./configs/database');
 require('./models/associations');
-const usuarioRoutes = require('./routes/usuario/usuario.routes');
+const authRoutes = require('./routes/auth/auth.routes');
+const estudianteRoutes = require('./routes/estudiante/estudiante.routes');
 const profesionalRoutes = require('./routes/profesional/profesional.routes');
 
 const app = express();
@@ -17,7 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Rutas
-app.use('/api/usuario', usuarioRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/estudiante', estudianteRoutes);
 app.use('/api/profesional', profesionalRoutes);
 
 // Ruta base de prueba
