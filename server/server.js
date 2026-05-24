@@ -10,6 +10,7 @@ const categoriaServicioRoutes = require('./routes/categoria_servicio/categoria_s
 const estudianteRoutes = require('./routes/estudiante/estudiante.routes');
 const profesionalRoutes = require('./routes/profesional/profesional.routes');
 const servicioRoutes = require('./routes/servicio/servicio.routes');
+const solicitudServicioRoutes = require('./routes/solicitud_servicio/solicitud_servicio.routes');
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use('/api/categoria_servicio', categoriaServicioRoutes);
 app.use('/api/estudiante', estudianteRoutes);
 app.use('/api/profesional', profesionalRoutes);
 app.use('/api/servicios', servicioRoutes);
+app.use('/api/solicitud_servicio', solicitudServicioRoutes);
 
 // Ruta base de prueba
 app.get('/', (req, res) => {
