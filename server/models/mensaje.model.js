@@ -2,6 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../configs/database');
 const SolicitudServicio = require('./solicitud_servicio.model');
 const Estudiante = require('./estudiante.model');
+const Profesional = require('./profesional.model');
 
 const Mensaje = sequelize.define('mensaje', {
   id_mensaje: {
@@ -21,11 +22,25 @@ const Mensaje = sequelize.define('mensaje', {
 
   id_estudiante: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
     references: {
       model: Estudiante,
       key: 'id_estudiante'
     }
+  },
+
+  id_profesional: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: Profesional,
+      key: 'id_profesional'
+    }
+  },
+
+  tipo_emisor: {
+    type: DataTypes.STRING(30),
+    allowNull: false
   },
 
   mensaje: {

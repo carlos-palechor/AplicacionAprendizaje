@@ -29,7 +29,7 @@ async function obtenerCategoriaPorId(id_categoria) {
   return categoria;
 }
 
-async function crearCategoria(data) {
+async function crearCategoria(data, id_administrador) {
   const categoriaExistente = await CategoriaServicio.findOne({
     where: {
       nombre_categoria: data.nombre_categoria
@@ -45,7 +45,8 @@ async function crearCategoria(data) {
   return CategoriaServicio.create({
     nombre_categoria: data.nombre_categoria,
     descripcion: data.descripcion,
-    estado: data.estado || 'activo'
+    estado: data.estado || 'activo',
+    creado_por_admin: id_administrador
   });
 }
 

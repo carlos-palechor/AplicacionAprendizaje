@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { Estudiante, Profesional, Rol } = require('../../models/associations');
+const { Administrador, Estudiante, Profesional, Rol } = require('../../models/associations');
 
 const TIPOS_CUENTA = {
   estudiante: {
@@ -20,6 +20,15 @@ const TIPOS_CUENTA = {
     mensajeRegistro: 'Profesional registrado correctamente',
     mensajeRolNoEncontrado: 'No se encontro el rol profesional en la base de datos',
     mensajeRolNoPermitido: 'Este endpoint solo permite cuentas profesionales'
+  },
+  administrador: {
+    modelo: Administrador,
+    idCampo: 'id_administrador',
+    idRol: 3,
+    nombreRol: 'administrador',
+    mensajeRegistro: 'Administrador registrado correctamente',
+    mensajeRolNoEncontrado: 'No se encontro el rol administrador en la base de datos',
+    mensajeRolNoPermitido: 'Este endpoint solo permite cuentas administradoras'
   }
 };
 
@@ -62,8 +71,11 @@ async function validarCorreoDisponible(correo) {
   const profesionalExistente = await Profesional.findOne({
     where: { correo }
   });
+  const administradorExistente = await Administrador.findOne({
+    where: { correo }
+  });
 
-  if (estudianteExistente || profesionalExistente) {
+  if (estudianteExistente || profesionalExistente || administradorExistente) {
     const error = new Error();
     error.code = 'EMAIL_EXISTS';
     throw error;

@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../configs/database');
+const Administrador = require('./administrador.model');
 
 const CategoriaServicio = sequelize.define('categoria_servicio', {
   id_categoria: {
@@ -18,6 +19,14 @@ const CategoriaServicio = sequelize.define('categoria_servicio', {
   estado: {
     type: DataTypes.STRING(30),
     allowNull: true
+  },
+  creado_por_admin: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: Administrador,
+      key: 'id_administrador'
+    }
   }
 }, {
   tableName: 'categoria_servicio',

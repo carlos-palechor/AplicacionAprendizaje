@@ -1,23 +1,23 @@
 const jwt = require('jsonwebtoken');
 
+function crearErrorToken(code) {
+  const error = new Error();
+  error.code = code;
+  return error;
+}
+
 function verificarToken(req, res, next) {
   try {
     const authorization = req.headers.authorization;
 
     if (!authorization) {
-      return res.status(401).json({
-        ok: false,
-        message: 'Token no enviado'
-      });
+      return next(crearErrorToken('TOKEN_NOT_SENT'));
     }
 
     const partes = authorization.split(' ');
 
     if (partes.length !== 2 || partes[0] !== 'Bearer') {
-      return res.status(401).json({
-        ok: false,
-        message: 'Formato de token invalido'
-      });
+      return next(crearErrorToken('TOKEN_BAD_FORMAT'));
     }
 
     const token = partes[1];
@@ -25,12 +25,9 @@ function verificarToken(req, res, next) {
 
     req.auth = decoded;
 
-    next();
+    return next();
   } catch (error) {
-    return res.status(401).json({
-      ok: false,
-      message: 'Token invalido o expirado'
-    });
+    return next(crearErrorToken('TOKEN_INVALID'));
   }
 }
 

@@ -1,12 +1,11 @@
 function verificarAdministrador(req, res, next) {
-  if (!req.auth || req.auth.id_rol !== 3) {
-    return res.status(403).json({
-      ok: false,
-      message: 'Solo un administrador puede realizar esta accion'
-    });
+  if (!req.auth || req.auth.tipo_cuenta !== 'administrador' || req.auth.id_rol !== 3) {
+    const error = new Error();
+    error.code = 'ONLY_ADMIN_ACCOUNT';
+    return next(error);
   }
 
-  next();
+  return next();
 }
 
 module.exports = {

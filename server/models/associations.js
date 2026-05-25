@@ -1,4 +1,5 @@
 const Rol = require('./rol.model');
+const Administrador = require('./administrador.model');
 const Estudiante = require('./estudiante.model');
 const Profesional = require('./profesional.model');
 const CategoriaServicio = require('./categoria_servicio.model');
@@ -6,6 +7,15 @@ const Servicio = require('./servicio.model');
 const SolicitudServicio = require('./solicitud_servicio.model');
 const Mensaje = require('./mensaje.model');
 const Calificacion = require('./calificacion.model');
+
+// Rol - Estudiante
+Rol.hasMany(Administrador, {
+  foreignKey: 'id_rol'
+});
+
+Administrador.belongsTo(Rol, {
+  foreignKey: 'id_rol'
+});
 
 // Rol - Estudiante
 Rol.hasMany(Estudiante, {
@@ -32,6 +42,15 @@ Profesional.hasMany(Servicio, {
 
 Servicio.belongsTo(Profesional, {
   foreignKey: 'id_profesional'
+});
+
+// CategoriaServicio - Servicio
+Administrador.hasMany(CategoriaServicio, {
+  foreignKey: 'creado_por_admin'
+});
+
+CategoriaServicio.belongsTo(Administrador, {
+  foreignKey: 'creado_por_admin'
 });
 
 // CategoriaServicio - Servicio
@@ -79,6 +98,15 @@ Mensaje.belongsTo(Estudiante, {
   foreignKey: 'id_estudiante'
 });
 
+// Profesional - Mensaje
+Profesional.hasMany(Mensaje, {
+  foreignKey: 'id_profesional'
+});
+
+Mensaje.belongsTo(Profesional, {
+  foreignKey: 'id_profesional'
+});
+
 // SolicitudServicio - Calificacion
 SolicitudServicio.hasOne(Calificacion, {
   foreignKey: 'id_solicitud'
@@ -90,6 +118,7 @@ Calificacion.belongsTo(SolicitudServicio, {
 
 module.exports = {
   Rol,
+  Administrador,
   Estudiante,
   Profesional,
   CategoriaServicio,

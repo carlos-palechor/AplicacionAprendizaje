@@ -1,7 +1,8 @@
-const TIPOS_CUENTA_PERMITIDOS = ['estudiante', 'profesional'];
+const TIPOS_CUENTA_PERMITIDOS = ['estudiante', 'profesional', 'administrador'];
 const ROLES_AUTH = {
   estudiante: 1,
-  profesional: 2
+  profesional: 2,
+  administrador: 3
 };
 const CAMPOS_PROFESIONAL = [
   'universidad',
@@ -14,7 +15,7 @@ const CAMPOS_PROFESIONAL = [
 
 function validarTipoCuenta(tipoCuenta) {
   if (!TIPOS_CUENTA_PERMITIDOS.includes(tipoCuenta)) {
-    return ['Tipo de cuenta no valido. Use estudiante o profesional'];
+    return ['Tipo de cuenta no valido. Use estudiante, profesional o administrador'];
   }
 
   return [];
@@ -78,6 +79,14 @@ function validarRegistroAuth(tipoCuenta, data) {
     CAMPOS_PROFESIONAL.forEach((campo) => {
       if (body[campo] !== undefined) {
         errores.push(`El campo ${campo} no esta permitido para estudiantes`);
+      }
+    });
+  }
+
+  if (tipoCuenta === 'administrador') {
+    CAMPOS_PROFESIONAL.forEach((campo) => {
+      if (body[campo] !== undefined) {
+        errores.push(`El campo ${campo} no esta permitido para administradores`);
       }
     });
   }
