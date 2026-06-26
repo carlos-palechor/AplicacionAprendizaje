@@ -1,0 +1,80 @@
+.profesionales-destacados {
+  background: var(--color-soft);
+}
+
+.profesionales-destacados__lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 22px;
+  max-width: 1060px;
+}
+
+.tarjeta-profesional {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 18px;
+  padding: 26px;
+  border: 1px solid rgba(16, 18, 37, 0.12);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.tarjeta-profesional__contenido h3 {
+  margin: 0 0 6px;
+  font-size: 20px;
+  line-height: 1.15;
+}
+
+.tarjeta-profesional__contenido p,
+.tarjeta-profesional__contenido span,
+.tarjeta-profesional__contenido strong {
+  display: block;
+  margin: 0 0 5px;
+  color: var(--color-muted);
+  font-size: 15px;
+}
+
+.tarjeta-profesional__contenido strong {
+  margin-top: 14px;
+  color: var(--color-text);
+}
+
+.tarjeta-profesional__tags {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.tarjeta-profesional__tags span {
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: var(--color-primary);
+  background: #e8ebff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.tarjeta-profesional__accion {
+  grid-column: 1 / -1;
+  display: block;
+  margin-top: 8px;
+  padding: 12px 18px;
+  border: 1px solid #8c98ff;
+  border-radius: 999px;
+  color: var(--color-primary);
+  text-align: center;
+  font-weight: 700;
+}
+
+@media (max-width: 560px) {
+  .profesionales-destacados__lista {
+    grid-template-columns: 1fr;
+  }
+
+  .tarjeta-profesional {
+    grid-template-columns: 1fr;
+  }
+}

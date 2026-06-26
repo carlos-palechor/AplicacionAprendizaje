@@ -1,0 +1,33 @@
+<section class="estadisticas" aria-label="Resumen de la plataforma">
+  <article>
+    <span class="estadisticas__icono">Usuarios</span>
+    <div>
+      <strong>{{ estadisticas?.profesionales_activos || 0 }}+</strong>
+      <small>Profesionales Activos</small>
+    </div>
+  </article>
+
+  <article>
+    <span class="estadisticas__icono">Servicios</span>
+    <div>
+      <strong>{{ estadisticas?.servicios_disponibles || 0 }}+</strong>
+      <small>Servicios Disponibles</small>
+    </div>
+  </article>
+
+  <article>
+    <span class="estadisticas__icono">Rating</span>
+    <div>
+      <strong>{{ estadisticas?.calificacion_promedio || 0 }}</strong>
+      <small>Calificacion promedio</small>
+    </div>
+  </article>
+
+  <article>
+    <span class="estadisticas__icono">Seguro</span>
+    <div>
+      <strong>{{ estadisticas?.servicios_completados || 0 }}</strong>
+      <small>Servicios Completados</small>
+    </div>
+  </article>
+</section>

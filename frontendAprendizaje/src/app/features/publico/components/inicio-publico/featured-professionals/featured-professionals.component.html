@@ -1,0 +1,32 @@
+<section class="seccion profesionales-destacados">
+  <div class="seccion__encabezado">
+    <div>
+      <h2>Profesionales Destacados</h2>
+      <p>Con la mejor calificacion de la plataforma</p>
+    </div>
+  </div>
+
+  <div class="profesionales-destacados__lista">
+    @for (profesional of profesionales; track profesional.id_profesional) {
+      <article class="tarjeta-profesional">
+        <div class="avatar avatar--grande"></div>
+        <div class="tarjeta-profesional__contenido">
+          <h3>{{ profesional.nombre_completo }}</h3>
+          <p>{{ profesional.titulo_profesional || profesional.especializacion || 'Profesional academico' }}</p>
+          <span>{{ profesional.universidad || 'Universidad no registrada' }}</span>
+          <strong>Rating {{ profesional.reputacion.promedio }} ({{ profesional.reputacion.total_calificaciones }} resenas)</strong>
+        </div>
+
+        <div class="tarjeta-profesional__tags">
+          @for (servicio of profesional.servicios.slice(0, 3); track servicio.id_servicio) {
+            <span>{{ servicio.categoria_servicio.nombre_categoria }}</span>
+          }
+        </div>
+
+        <a class="tarjeta-profesional__accion" href="#registro">Ver Perfil</a>
+      </article>
+    } @empty {
+      <p class="estado-vacio">No hay profesionales destacados disponibles por ahora.</p>
+    }
+  </div>
+</section>

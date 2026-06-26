@@ -1,0 +1,36 @@
+<section class="seccion servicios-destacados">
+  <div class="seccion__encabezado">
+    <div>
+      <h2>Servicios Destacados</h2>
+      <p>Los mas recientes disponibles en la plataforma</p>
+    </div>
+  </div>
+
+  <div class="servicios-destacados__lista">
+    @for (servicio of servicios; track servicio.id_servicio) {
+      <article class="tarjeta-servicio">
+        <div class="tarjeta-servicio__cabecera">
+          <span>{{ servicio.categoria_servicio.nombre_categoria }}</span>
+          <small>{{ servicio.modalidad || 'Modalidad por acordar' }}</small>
+        </div>
+        <h3>{{ servicio.titulo }}</h3>
+        <p>{{ servicio.descripcion || 'Servicio academico disponible.' }}</p>
+        <div class="tarjeta-servicio__profesional">
+          <div class="avatar"></div>
+          <div>
+            <strong>{{ obtenerNombreProfesional(servicio) }}</strong>
+            <small>{{ servicio.profesional.titulo_profesional || servicio.profesional.especializacion || 'Profesional academico' }}</small>
+          </div>
+        </div>
+        <div class="tarjeta-servicio__pie">
+          <span>Rating {{ servicio.reputacion.promedio }} ({{ servicio.reputacion.total_calificaciones }})</span>
+          <span>{{ servicio.tiempo_estimado || 'Tiempo por acordar' }}</span>
+          <strong>Desde ${{ servicio.precio }}</strong>
+        </div>
+        <a class="tarjeta-servicio__accion" href="#registro">Solicitar servicio</a>
+      </article>
+    } @empty {
+      <p class="estado-vacio">No hay servicios destacados disponibles por ahora.</p>
+    }
+  </div>
+</section>

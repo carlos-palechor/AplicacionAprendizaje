@@ -1,0 +1,113 @@
+.servicios-destacados {
+  background: #fbfbfc;
+}
+
+.servicios-destacados__lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 22px;
+  max-width: 1060px;
+}
+
+.tarjeta-servicio {
+  display: flex;
+  flex-direction: column;
+  min-height: 330px;
+  overflow: hidden;
+  border: 1px solid rgba(16, 18, 37, 0.12);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.tarjeta-servicio__cabecera {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 16px 0;
+}
+
+.tarjeta-servicio__cabecera span {
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: var(--color-primary);
+  background: #e8ebff;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.tarjeta-servicio__cabecera small {
+  color: var(--color-muted);
+  font-size: 13px;
+  text-align: right;
+}
+
+.tarjeta-servicio h3 {
+  margin: 18px 16px 8px;
+  font-size: 20px;
+  line-height: 1.18;
+}
+
+.tarjeta-servicio p {
+  margin: 0 16px 16px;
+  color: var(--color-muted);
+  font-size: 15px;
+  line-height: 1.38;
+}
+
+.tarjeta-servicio__profesional {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding: 18px 16px;
+  border-top: 1px solid #c8cad3;
+}
+
+.tarjeta-servicio__profesional strong,
+.tarjeta-servicio__profesional small {
+  display: block;
+}
+
+.tarjeta-servicio__profesional small {
+  color: var(--color-muted);
+}
+
+.tarjeta-servicio__pie {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 8px;
+  align-items: center;
+  padding: 12px 14px;
+  background: #f6f7fb;
+  font-size: 13px;
+}
+
+.tarjeta-servicio__pie strong {
+  color: var(--color-primary);
+  text-align: right;
+}
+
+.tarjeta-servicio__accion {
+  display: block;
+  padding: 14px 16px;
+  color: var(--color-primary);
+  font-weight: 700;
+  text-align: center;
+  border-top: 1px solid #e1e3ec;
+}
+
+@media (max-width: 620px) {
+  .servicios-destacados__lista {
+    max-width: none;
+  }
+
+  .tarjeta-servicio__pie {
+    grid-template-columns: 1fr;
+  }
+
+  .tarjeta-servicio__pie strong {
+    text-align: left;
+  }
+}

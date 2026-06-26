@@ -1,0 +1,56 @@
+<section class="hero">
+  <div class="hero__inner">
+    <div class="hero__contenido">
+      <span class="hero__badge">
+        +{{ estadisticas?.profesionales_activos || 0 }} Profesionales Disponibles
+      </span>
+
+      <h1>
+        Conecta con expertos para tu
+        <strong>apoyo academico</strong>
+        y profesional
+      </h1>
+
+      <p>
+        Encuentra profesionales calificados que te ayuden con tus actividades,
+        talleres, clases personalizadas, asesorias y mucho mas.
+      </p>
+
+      <form class="buscador-hero">
+        <label for="busqueda-hero">Buscar ayuda academica</label>
+        <input id="busqueda-hero" type="search" placeholder="Que tipo de ayuda necesitas?" />
+        <a class="boton boton--amarillo" href="#registro">Buscar</a>
+      </form>
+
+      <div class="chips">
+        @for (categoria of categorias.slice(0, 5); track categoria.id_categoria) {
+          <a href="#registro">{{ categoria.nombre_categoria }}</a>
+        }
+      </div>
+    </div>
+
+    <div class="hero__visual" aria-label="Resumen visual del servicio">
+      <div class="hero__tarjeta hero__tarjeta--rating">
+        <span>Rating</span>
+        <div>
+          <strong>{{ estadisticas?.calificacion_promedio || 0 }} / 5</strong>
+          <small>calificacion promedio</small>
+        </div>
+      </div>
+
+      <div class="hero__imagen">
+        <div class="hero__icono hero__icono--idea">Idea</div>
+        <div class="hero__icono hero__icono--libro">Libro</div>
+        <div class="hero__icono hero__icono--grado">Grado</div>
+      </div>
+
+      <div class="hero__tarjeta hero__tarjeta--servicios">
+        <span>OK</span>
+        <div>
+          <strong>+{{ estadisticas?.servicios_completados || 0 }}</strong>
+          <small>servicios completados</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

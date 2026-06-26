@@ -1,0 +1,37 @@
+.footer-publico {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(260px, auto) minmax(220px, 1fr);
+  align-items: center;
+  gap: 22px;
+  padding: 26px 40px;
+  color: #fff;
+  background: #030303;
+}
+
+.footer-publico p {
+  margin: 0;
+  text-align: center;
+  line-height: 1.35;
+}
+
+.footer-publico nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: 24px;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+@media (max-width: 880px) {
+  .footer-publico {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-publico p {
+    text-align: left;
+  }
+
+  .footer-publico nav {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}

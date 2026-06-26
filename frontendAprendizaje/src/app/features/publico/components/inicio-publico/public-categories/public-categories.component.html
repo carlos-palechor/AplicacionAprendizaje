@@ -1,0 +1,21 @@
+<section id="categorias" class="seccion categorias">
+  <div class="seccion__encabezado">
+    <div>
+      <h2>Categorias de Servicio</h2>
+      <p>Explora por area de conocimiento</p>
+    </div>
+    <a href="#registro">Ver Todas</a>
+  </div>
+
+  <div class="categorias__lista">
+    @for (categoria of categorias; track categoria.id_categoria) {
+      <article class="categoria">
+        <span>Categoria</span>
+        <h3>{{ categoria.nombre_categoria }}</h3>
+        <p>{{ categoria.total_servicios }} Servicios</p>
+      </article>
+    } @empty {
+      <p class="estado-vacio">No hay categorias disponibles por ahora.</p>
+    }
+  </div>
+</section>
