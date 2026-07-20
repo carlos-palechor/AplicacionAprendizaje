@@ -1,23 +1,105 @@
 .servicios-destacados {
-  background: #fbfbfc;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 8% 18%, rgba(18, 56, 255, 0.12), transparent 28%),
+    linear-gradient(180deg, #ffffff 0%, #f3f5ff 100%);
+  scroll-margin-top: 90px;
+}
+
+.servicios-destacados__controles {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.servicios-destacados__controles button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(18, 56, 255, 0.24);
+  border-radius: 50%;
+  color: var(--color-primary);
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(135deg, var(--color-primary), var(--color-secondary)) border-box;
+  box-shadow: 0 16px 34px rgba(18, 56, 255, 0.14);
+  cursor: pointer;
+  font-size: 30px;
+  line-height: 1;
+  pointer-events: auto;
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.servicios-destacados__controles button:hover:not(:disabled) {
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  box-shadow: 0 18px 36px rgba(18, 56, 255, 0.28);
+  transform: translateY(-2px) scale(1.04);
+}
+
+.servicios-destacados__controles button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+.servicios-destacados__carrusel {
+  position: relative;
+  max-width: none;
+}
+
+.servicios-destacados__viewport {
+  overflow: hidden;
+  margin: 0 64px;
+  padding: 10px 0 18px;
 }
 
 .servicios-destacados__lista {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  display: flex;
   gap: 22px;
-  max-width: 1060px;
+  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 
 .tarjeta-servicio {
+  position: relative;
   display: flex;
   flex-direction: column;
+  flex: 0 0 calc((100% - 22px) / 2);
   min-height: 330px;
   overflow: hidden;
-  border: 1px solid rgba(16, 18, 37, 0.12);
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(18, 56, 255, 0.11);
+  border-radius: 18px;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(135deg, rgba(18, 56, 255, 0.22), rgba(167, 45, 232, 0.18)) border-box;
+  box-shadow: 0 18px 44px rgba(16, 18, 37, 0.1);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.tarjeta-servicio::before {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 5px;
+  content: '';
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-accent));
+}
+
+.tarjeta-servicio:hover {
+  box-shadow: 0 24px 54px rgba(18, 56, 255, 0.16);
+  transform: translateY(-6px);
+}
+
+.tarjeta-servicio--resaltada {
+  border-color: rgba(255, 241, 38, 0.9);
+  box-shadow:
+    0 0 0 4px rgba(255, 241, 38, 0.34),
+    0 24px 54px rgba(18, 56, 255, 0.2);
+  transform: translateY(-6px);
 }
 
 .tarjeta-servicio__cabecera {
@@ -32,7 +114,7 @@
   padding: 6px 10px;
   border-radius: 999px;
   color: var(--color-primary);
-  background: #e8ebff;
+  background: linear-gradient(135deg, #e8ebff, #f4e6ff);
   font-size: 12px;
   font-weight: 800;
 }
@@ -62,7 +144,8 @@
   gap: 12px;
   margin-top: auto;
   padding: 18px 16px;
-  border-top: 1px solid #c8cad3;
+  border-top: 1px solid rgba(18, 56, 255, 0.12);
+  background: linear-gradient(90deg, rgba(18, 56, 255, 0.035), rgba(167, 45, 232, 0.035));
 }
 
 .tarjeta-servicio__profesional strong,
@@ -80,7 +163,7 @@
   gap: 8px;
   align-items: center;
   padding: 12px 14px;
-  background: #f6f7fb;
+  background: #f4f6ff;
   font-size: 13px;
 }
 
@@ -92,15 +175,25 @@
 .tarjeta-servicio__accion {
   display: block;
   padding: 14px 16px;
-  color: var(--color-primary);
+  color: #fff;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   font-weight: 700;
   text-align: center;
-  border-top: 1px solid #e1e3ec;
+  border-top: 1px solid rgba(18, 56, 255, 0.12);
+  transition: filter 160ms ease;
+}
+
+.tarjeta-servicio__accion:hover {
+  filter: brightness(1.08);
 }
 
 @media (max-width: 620px) {
-  .servicios-destacados__lista {
-    max-width: none;
+  .servicios-destacados__viewport {
+    margin: 0 52px;
+  }
+
+  .tarjeta-servicio {
+    flex-basis: 100%;
   }
 
   .tarjeta-servicio__pie {
@@ -109,5 +202,14 @@
 
   .tarjeta-servicio__pie strong {
     text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .servicios-destacados__lista,
+  .servicios-destacados__controles button,
+  .tarjeta-servicio,
+  .tarjeta-servicio__accion {
+    transition: none;
   }
 }

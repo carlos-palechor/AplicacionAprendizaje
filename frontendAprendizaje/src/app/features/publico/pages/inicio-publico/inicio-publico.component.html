@@ -1,16 +1,18 @@
 <main class="inicio-publico">
-  <app-public-navbar />
+  <app-public-navbar
+    [servicios]="serviciosDestacados"
+    (servicioSeleccionado)="seleccionarServicio($event)"
+  />
 
   <app-public-hero
     [estadisticas]="estadisticas"
     [categorias]="categorias"
   />
 
-  <app-public-stats [estadisticas]="estadisticas" />
-
-  <app-public-categories [categorias]="categorias" />
-
-  <app-featured-services [servicios]="serviciosDestacados" />
+  <app-featured-services
+    [servicios]="serviciosDestacados"
+    [servicioSeleccionadoId]="servicioSeleccionadoId"
+  />
 
   <app-featured-professionals [profesionales]="profesionalesDestacados" />
 

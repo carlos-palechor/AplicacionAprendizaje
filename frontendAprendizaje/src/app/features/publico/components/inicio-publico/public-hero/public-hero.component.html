@@ -2,55 +2,54 @@
   <div class="hero__inner">
     <div class="hero__contenido">
       <span class="hero__badge">
-        +{{ estadisticas?.profesionales_activos || 0 }} Profesionales Disponibles
+        +{{ estadisticas?.profesionales_activos || 0 }} profesionales disponibles
       </span>
 
       <h1>
-        Conecta con expertos para tu
-        <strong>apoyo academico</strong>
-        y profesional
+        <span>Encuentra apoyo academico</span>
+        <span>cuando lo necesitas</span>
       </h1>
 
       <p>
-        Encuentra profesionales calificados que te ayuden con tus actividades,
-        talleres, clases personalizadas, asesorias y mucho mas.
+        Conecta con profesionales para clases, talleres, redaccion,
+        programacion, matematicas y asesorias personalizadas.
       </p>
 
-      <form class="buscador-hero">
-        <label for="busqueda-hero">Buscar ayuda academica</label>
-        <input id="busqueda-hero" type="search" placeholder="Que tipo de ayuda necesitas?" />
-        <a class="boton boton--amarillo" href="#registro">Buscar</a>
-      </form>
+      <div class="hero__acciones" aria-label="Acciones principales">
+        <a class="boton boton--primario" href="#servicios">Explorar servicios</a>
+        <a class="boton boton--amarillo" href="#registro">Crear cuenta</a>
+        <a class="boton boton--secundario" href="#registro">Soy profesional</a>
+      </div>
 
-      <div class="chips">
+      <div class="hero__chips" aria-label="Categorias populares">
         @for (categoria of categorias.slice(0, 5); track categoria.id_categoria) {
-          <a href="#registro">{{ categoria.nombre_categoria }}</a>
+          <a href="#servicios">{{ categoria.nombre_categoria }}</a>
         }
       </div>
     </div>
 
-    <div class="hero__visual" aria-label="Resumen visual del servicio">
-      <div class="hero__tarjeta hero__tarjeta--rating">
-        <span>Rating</span>
-        <div>
-          <strong>{{ estadisticas?.calificacion_promedio || 0 }} / 5</strong>
-          <small>calificacion promedio</small>
-        </div>
-      </div>
-
+    <aside class="hero__panel" aria-label="Resumen de la plataforma">
       <div class="hero__imagen">
-        <div class="hero__icono hero__icono--idea">Idea</div>
-        <div class="hero__icono hero__icono--libro">Libro</div>
-        <div class="hero__icono hero__icono--grado">Grado</div>
+        <img
+          src="/images/hero-apoyo.jpg"
+          alt="Estudiantes recibiendo apoyo academico"
+        />
       </div>
 
-      <div class="hero__tarjeta hero__tarjeta--servicios">
-        <span>OK</span>
-        <div>
-          <strong>+{{ estadisticas?.servicios_completados || 0 }}</strong>
-          <small>servicios completados</small>
-        </div>
+      <div class="hero__metricas">
+        <article>
+          <strong>{{ estadisticas?.calificacion_promedio || 0 }}/5</strong>
+          <span>calificacion promedio</span>
+        </article>
+        <article>
+          <strong>{{ estadisticas?.servicios_disponibles || 0 }}+</strong>
+          <span>servicios disponibles</span>
+        </article>
+        <article>
+          <strong>{{ estadisticas?.servicios_completados || 0 }}+</strong>
+          <span>servicios completados</span>
+        </article>
       </div>
-    </div>
+    </aside>
   </div>
 </section>
