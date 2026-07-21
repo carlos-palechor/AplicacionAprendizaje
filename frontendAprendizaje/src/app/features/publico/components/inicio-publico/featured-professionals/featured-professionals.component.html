@@ -1,25 +1,36 @@
 <section class="seccion profesionales-destacados">
   <div class="seccion__encabezado">
     <div>
-      <h2>Profesionales Destacados</h2>
-      <p>Con la mejor calificacion de la plataforma</p>
+      <h2>Profesionales disponibles para ayudarte</h2>
+      <p>Conoce algunos perfiles activos en la plataforma</p>
     </div>
+    <a href="#registro">Ver todos los profesionales</a>
   </div>
 
   <div class="profesionales-destacados__lista">
     @for (profesional of profesionales; track profesional.id_profesional) {
       <article class="tarjeta-profesional">
-        <div class="avatar avatar--grande"></div>
-        <div class="tarjeta-profesional__contenido">
-          <h3>{{ profesional.nombre_completo }}</h3>
-          <p>{{ profesional.titulo_profesional || profesional.especializacion || 'Profesional academico' }}</p>
-          <span>{{ profesional.universidad || 'Universidad no registrada' }}</span>
-          <strong>Rating {{ profesional.reputacion.promedio }} ({{ profesional.reputacion.total_calificaciones }} resenas)</strong>
+        <div class="tarjeta-profesional__cabecera">
+          <div class="avatar avatar--grande"></div>
+          <div class="tarjeta-profesional__contenido">
+            <h3>{{ profesional.nombre_completo }}</h3>
+            <p>{{ obtenerEspecialidad(profesional) }}</p>
+            <span>{{ profesional.universidad || 'Universidad no registrada' }}</span>
+          </div>
+        </div>
+
+        <div class="tarjeta-profesional__estado">
+          <strong>{{ obtenerTextoRating(profesional) }}</strong>
+          @if (profesional.verificado) {
+            <span>Verificado</span>
+          }
         </div>
 
         <div class="tarjeta-profesional__tags">
-          @for (servicio of profesional.servicios.slice(0, 3); track servicio.id_servicio) {
-            <span>{{ servicio.categoria_servicio.nombre_categoria }}</span>
+          @for (categoria of obtenerCategoriasUnicas(profesional); track categoria) {
+            <span>{{ categoria }}</span>
+          } @empty {
+            <span>Servicios por definir</span>
           }
         </div>
 

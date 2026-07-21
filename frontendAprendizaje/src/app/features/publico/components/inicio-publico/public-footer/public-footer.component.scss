@@ -1,15 +1,29 @@
 .footer-publico {
   display: grid;
-  grid-template-columns: minmax(220px, 1fr) minmax(260px, auto) minmax(220px, 1fr);
+  grid-template-columns: minmax(240px, 1fr) minmax(260px, auto) minmax(240px, 1fr);
   align-items: center;
-  gap: 22px;
-  padding: 26px 40px;
+  gap: 24px;
+  padding: 28px 40px;
   color: #fff;
-  background: #030303;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(90deg, rgba(18, 56, 255, 0.16), transparent 24%, rgba(167, 45, 232, 0.16)),
+    #030306;
+}
+
+.marca__icono--logo {
+  overflow: hidden;
+  border-radius: 14px;
+  background-color: #fff;
+  background-image: url('/images/logo-apoyo.png');
+  background-repeat: no-repeat;
+  background-position: center 34%;
+  background-size: 160%;
 }
 
 .footer-publico p {
   margin: 0;
+  color: rgba(255, 255, 255, 0.82);
   text-align: center;
   line-height: 1.35;
 }
@@ -18,7 +32,15 @@
   display: flex;
   justify-content: flex-end;
   gap: 24px;
-  color: rgba(255, 255, 255, 0.86);
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.footer-publico a {
+  transition: color 160ms ease;
+}
+
+.footer-publico a:hover {
+  color: var(--color-accent);
 }
 
 @media (max-width: 880px) {

@@ -1,92 +1,182 @@
 .como-funciona {
-  padding: 66px 40px 48px;
-  background: #fff;
+  padding: 72px 40px 58px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 10%, rgba(18, 56, 255, 0.08), transparent 26%),
+    radial-gradient(circle at 86% 24%, rgba(255, 241, 38, 0.16), transparent 22%),
+    #fff;
   text-align: center;
 }
 
 .como-funciona__titulo h2 {
-  margin: 0 0 6px;
-  font-size: 38px;
-  font-weight: 500;
+  margin: 0 0 8px;
+  font-size: clamp(32px, 3vw, 44px);
+  font-weight: 700;
+  line-height: 1.05;
 }
 
 .como-funciona__titulo p {
   margin: 0;
   color: var(--color-muted);
+  font-size: 16px;
 }
 
 .pasos {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 34px;
-  margin-top: 52px;
+  gap: 28px;
+  max-width: 1180px;
+  margin: 54px auto 0;
+}
+
+.pasos::before {
+  position: absolute;
+  top: 62px;
+  right: 16%;
+  left: 16%;
+  height: 3px;
+  content: '';
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-accent));
+  opacity: 0.34;
 }
 
 .pasos article {
+  position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
+  min-height: 300px;
+  padding: 30px 22px 26px;
+  border: 1px solid rgba(18, 56, 255, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 18px 44px rgba(16, 18, 37, 0.08);
+  animation: paso-entrada 520ms ease both;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.pasos article:nth-child(2) {
+  animation-delay: 100ms;
+}
+
+.pasos article:nth-child(3) {
+  animation-delay: 200ms;
+}
+
+.pasos article:hover {
+  box-shadow: 0 24px 54px rgba(18, 56, 255, 0.14);
+  transform: translateY(-6px);
 }
 
 .pasos__icono {
+  position: relative;
   display: grid;
   place-items: center;
-  width: 100px;
-  height: 100px;
-  border-radius: 16px;
-  font-size: 13px;
-  font-weight: 800;
+  width: 92px;
+  height: 92px;
+  border-radius: 24px;
+  box-shadow: 0 16px 30px rgba(16, 18, 37, 0.12);
+}
+
+.pasos__icono span {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.86);
+  font-size: 34px;
+  font-weight: 900;
+  animation: icono-flota 3.8s ease-in-out infinite;
 }
 
 .pasos__icono--azul {
   color: var(--color-primary);
-  background: #b8c0ff;
+  background: linear-gradient(135deg, #dfe4ff, #9eacff);
 }
 
 .pasos__icono--rosa {
-  color: #d326b7;
-  background: #f5a9ef;
+  color: #c51bac;
+  background: linear-gradient(135deg, #ffe1fb, #ec8ce4);
 }
 
 .pasos__icono--amarillo {
-  color: #f0a000;
-  background: #fff8a8;
+  color: #dd9800;
+  background: linear-gradient(135deg, #fff9bd, #fff126);
 }
 
 .pasos small {
-  margin: 14px 0 18px;
-  padding: 8px 36px;
+  margin: 18px 0 16px;
+  padding: 8px 28px;
   border-radius: 999px;
-  background: #b8c0ff;
   color: var(--color-primary);
+  background: #e8ebff;
+  font-weight: 800;
 }
 
 .pasos article:nth-child(2) small {
-  color: #d326b7;
-  background: #f5a9ef;
+  color: #c51bac;
+  background: #ffe1fb;
 }
 
 .pasos article:nth-child(3) small {
-  color: #f0a000;
-  background: #fff8c8;
+  color: #bd8200;
+  background: #fff7bf;
 }
 
 .pasos h3 {
-  margin: 0 0 18px;
-  font-size: clamp(24px, 2.6vw, 34px);
-  font-weight: 500;
+  margin: 0 0 14px;
+  font-size: clamp(24px, 2vw, 30px);
+  font-weight: 700;
+  line-height: 1.12;
 }
 
 .pasos p {
   max-width: 330px;
   margin: 0;
   color: var(--color-muted);
-  font-size: 17px;
-  line-height: 1.35;
+  font-size: 16px;
+  line-height: 1.42;
+}
+
+@keyframes paso-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes icono-flota {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
 @media (max-width: 860px) {
   .pasos {
     grid-template-columns: 1fr;
+  }
+
+  .pasos::before {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pasos article,
+  .pasos__icono span {
+    animation: none;
+    transition: none;
   }
 }

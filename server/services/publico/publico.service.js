@@ -183,6 +183,10 @@ async function obtenerProfesionalesDestacados() {
         ]
       }
     ],
+    order: [
+      ['verificado', 'DESC'],
+      ['id_profesional', 'DESC']
+    ],
     limit: 6,
     subQuery: false
   });
