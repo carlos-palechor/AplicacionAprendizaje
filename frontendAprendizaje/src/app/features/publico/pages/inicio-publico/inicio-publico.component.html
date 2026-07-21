@@ -7,6 +7,7 @@
   <app-public-hero
     [estadisticas]="estadisticas"
     [categorias]="categorias"
+    (categoriaSeleccionada)="seleccionarCategoria($event)"
   />
 
   <app-featured-services

@@ -60,7 +60,7 @@
             </div>
 
             <div class="tarjeta-servicio__pie">
-              <span>Rating {{ servicio.reputacion.promedio }} ({{ servicio.reputacion.total_calificaciones }})</span>
+              <span>{{ obtenerTextoRating(servicio) }}</span>
               <span>{{ servicio.tiempo_estimado || 'Tiempo por acordar' }}</span>
               <strong>Desde ${{ servicio.precio }}</strong>
             </div>

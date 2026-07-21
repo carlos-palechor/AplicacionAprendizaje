@@ -66,4 +66,20 @@ export class InicioPublicoComponent implements OnInit {
   seleccionarServicio(idServicio: number): void {
     this.servicioSeleccionadoId = idServicio;
   }
+
+  seleccionarCategoria(idCategoria: number): void {
+    const servicio = this.serviciosDestacados.find((servicioDestacado) => {
+      return servicioDestacado.id_categoria === idCategoria;
+    });
+
+    if (servicio) {
+      this.seleccionarServicio(servicio.id_servicio);
+      return;
+    }
+
+    document.getElementById('servicios')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CategoriaPublica, EstadisticasPublicas } from '../../../services/inicio-publico/publico.service';
 
 @Component({
@@ -10,4 +10,9 @@ import { CategoriaPublica, EstadisticasPublicas } from '../../../services/inicio
 export class PublicHeroComponent {
   @Input() estadisticas: EstadisticasPublicas | null = null;
   @Input() categorias: CategoriaPublica[] = [];
+  @Output() categoriaSeleccionada = new EventEmitter<number>();
+
+  seleccionarCategoria(idCategoria: number): void {
+    this.categoriaSeleccionada.emit(idCategoria);
+  }
 }

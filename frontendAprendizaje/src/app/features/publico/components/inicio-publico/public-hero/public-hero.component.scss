@@ -87,17 +87,19 @@
   animation: entrada-hero 620ms 320ms ease both;
 }
 
-.hero__chips a {
+.hero__chips button {
   padding: 10px 16px;
+  border: none;
   border-radius: 999px;
+  color: #fff;
   background: rgba(255, 255, 255, 0.22);
+  cursor: pointer;
   font-size: 14px;
   font-weight: 800;
-  backdrop-filter: blur(8px);
   transition: transform 180ms ease, background 180ms ease;
 }
 
-.hero__chips a:hover {
+.hero__chips button:hover {
   background: rgba(255, 255, 255, 0.32);
   transform: translateY(-3px);
 }
@@ -276,7 +278,7 @@
   }
 
   .hero__acciones .boton,
-  .hero__chips a,
+  .hero__chips button,
   .hero__imagen,
   .hero__imagen img {
     transition: none;

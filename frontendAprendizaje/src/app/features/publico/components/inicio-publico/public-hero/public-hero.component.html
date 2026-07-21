@@ -17,13 +17,13 @@
 
       <div class="hero__acciones" aria-label="Acciones principales">
         <a class="boton boton--primario" href="#servicios">Explorar servicios</a>
-        <a class="boton boton--amarillo" href="#registro">Crear cuenta</a>
-        <a class="boton boton--secundario" href="#registro">Soy profesional</a>
       </div>
 
       <div class="hero__chips" aria-label="Categorias populares">
         @for (categoria of categorias.slice(0, 5); track categoria.id_categoria) {
-          <a href="#servicios">{{ categoria.nombre_categoria }}</a>
+          <button type="button" (click)="seleccionarCategoria(categoria.id_categoria)">
+            {{ categoria.nombre_categoria }}
+          </button>
         }
       </div>
     </div>

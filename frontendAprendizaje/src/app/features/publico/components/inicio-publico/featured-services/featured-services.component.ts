@@ -75,6 +75,16 @@ export class FeaturedServicesComponent implements AfterViewInit, OnChanges, OnDe
     return `${servicio.profesional.nombres} ${servicio.profesional.apellidos}`.trim();
   }
 
+  obtenerTextoRating(servicio: ServicioDestacado): string {
+    const total = servicio.reputacion.total_calificaciones;
+
+    if (total === 0) {
+      return 'Sin calificaciones';
+    }
+
+    return `${servicio.reputacion.promedio}/5 (${total})`;
+  }
+
   anterior(): void {
     if (!this.puedeMoverse) {
       return;
