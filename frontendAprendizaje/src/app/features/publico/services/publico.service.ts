@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 interface ApiResponse<T> {
   ok: boolean;
@@ -83,7 +84,7 @@ export interface ProfesionalDestacado {
   providedIn: 'root'
 })
 export class PublicoService {
-  private readonly apiUrl = 'http://localhost:3000/api/publico';
+  private readonly apiUrl = `${environment.apiBaseUrl}/publico`;
 
   constructor(private readonly http: HttpClient) {}
 

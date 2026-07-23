@@ -1,0 +1,31 @@
+.auth-social {
+  display: grid;
+  gap: 14px;
+}
+
+.auth-social__separador {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.auth-social__separador::before,
+.auth-social__separador::after {
+  content: '';
+  height: 1px;
+  flex: 1;
+  background: var(--color-border);
+}
+
+.boton-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 52px;
+  overflow: hidden;
+  border-radius: 16px;
+}

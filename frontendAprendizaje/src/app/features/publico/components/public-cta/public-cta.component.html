@@ -5,7 +5,7 @@
     <p>Encuentra servicios disponibles, conecta con profesionales y solicita acompanamiento cuando lo necesites.</p>
 
     <div class="cta-final__acciones">
-      <a class="boton boton--amarillo" href="#registro">Crear cuenta gratis</a>
+      <a class="boton boton--amarillo" routerLink="/auth" [queryParams]="{ modo: 'registro', tipo: 'estudiante' }">Crear cuenta gratis</a>
       <a class="boton boton--secundario" href="#servicios">Explorar servicios</a>
     </div>
   </div>

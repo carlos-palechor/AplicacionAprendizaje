@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { PublicLayoutComponent } from './layout/public-layout/public-layout.component';
+import { AuthPageComponent } from './features/auth/pages/auth-page/auth-page.component';
 import { InicioPublicoComponent } from './features/publico/pages/inicio-publico/inicio-publico.component';
 
 export const routes: Routes = [
@@ -12,6 +13,10 @@ export const routes: Routes = [
         component: InicioPublicoComponent
       }
     ]
+  },
+  {
+    path: 'auth',
+    component: AuthPageComponent
   },
   {
     path: '**',

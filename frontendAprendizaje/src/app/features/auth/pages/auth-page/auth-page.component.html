@@ -1,0 +1,187 @@
+<main class="auth-page">
+  <section class="auth-card">
+    <aside class="auth-card__marca">
+      <a class="marca" routerLink="/">
+        <div
+          class="marca__icono marca__icono--logo"
+          role="img"
+          aria-label="Logo de Apoyo academico y profesional"
+        ></div>
+        <span>Apoyo academico y profesional</span>
+      </a>
+
+      <div class="auth-card__mensaje">
+        <span>Apoyo academico directo</span>
+        <h1>La plataforma que conecta estudiantes con profesionales.</h1>
+        <p>Solicita clases, talleres, redaccion, programacion y asesorias desde un solo lugar.</p>
+      </div>
+
+      <div class="auth-card__datos" aria-label="Beneficios de la plataforma">
+        <span>Servicios activos</span>
+        <span>Profesionales disponibles</span>
+        <span>Solicitud rapida</span>
+      </div>
+    </aside>
+
+    <section class="auth-panel" aria-label="Acceso a la plataforma">
+      <div class="auth-panel__encabezado">
+        <span>{{ modo === 'login' ? 'Bienvenido de vuelta' : 'Crea tu cuenta' }}</span>
+        <h2>{{ modo === 'login' ? 'Ingresa a tu cuenta' : 'Elige como quieres empezar' }}</h2>
+        <p>{{ modo === 'login' ? 'Continua para solicitar o gestionar servicios.' : 'Registra tus datos y empieza a usar la plataforma.' }}</p>
+      </div>
+
+      <div class="selector" aria-label="Modo de acceso">
+        <button type="button" [class.activo]="modo === 'login'" (click)="cambiarModo('login')">
+          Iniciar sesion
+        </button>
+        <button type="button" [class.activo]="modo === 'registro'" (click)="cambiarModo('registro')">
+          Registrarse
+        </button>
+      </div>
+
+      <div class="tipo-cuenta" aria-label="Tipo de cuenta">
+        <button type="button" [class.activo]="tipoCuenta === 'estudiante'" (click)="cambiarTipoCuenta('estudiante')">
+          <span>ED</span>
+          Soy estudiante
+        </button>
+        <button type="button" [class.activo]="tipoCuenta === 'profesional'" (click)="cambiarTipoCuenta('profesional')">
+          <span>PR</span>
+          Soy profesional
+        </button>
+      </div>
+
+      @if (modo === 'registro') {
+        <form class="auth-form" [formGroup]="registroForm" (ngSubmit)="enviarRegistro()">
+          @if (!esRegistroProfesional || pasoProfesional === 1) {
+            <div class="auth-form__grid">
+              <label>
+                Nombres
+                <input type="text" formControlName="nombres" placeholder="Juan Carlos" />
+                @if (campoInvalido('nombres')) { <small>Ingresa tus nombres.</small> }
+              </label>
+              <label>
+                Apellidos
+                <input type="text" formControlName="apellidos" placeholder="Perez Gomez" />
+                @if (campoInvalido('apellidos')) { <small>Ingresa tus apellidos.</small> }
+              </label>
+            </div>
+
+            <label>
+              Correo electronico
+              <input type="email" formControlName="correo" placeholder="tu@correo.com" />
+              @if (campoInvalido('correo')) { <small>Ingresa un correo valido.</small> }
+            </label>
+
+            <label>
+              Contrasena
+              <input type="password" formControlName="contrasena" placeholder="Minimo 8 caracteres" />
+              @if (campoInvalido('contrasena')) { <small>La contrasena debe tener minimo 8 caracteres.</small> }
+            </label>
+          }
+
+          @if (esRegistroProfesional && pasoProfesional === 2) {
+            <label>
+              Universidad o institucion
+              <input type="text" formControlName="universidad" placeholder="Universidad del Cauca" />
+              @if (campoInvalido('universidad')) { <small>Este campo es obligatorio.</small> }
+            </label>
+
+            <div class="auth-form__grid">
+              <label>
+                Titulo profesional
+                <input type="text" formControlName="titulo_profesional" placeholder="Ingeniero de Sistemas" />
+                @if (campoInvalido('titulo_profesional')) { <small>Este campo es obligatorio.</small> }
+              </label>
+              <label>
+                Especializacion
+                <input type="text" formControlName="especializacion" placeholder="Programacion" />
+                @if (campoInvalido('especializacion')) { <small>Este campo es obligatorio.</small> }
+              </label>
+            </div>
+
+            <label>
+              LinkedIn o portafolio
+              <input type="url" formControlName="linkedin_url" placeholder="https://linkedin.com/in/usuario" />
+              @if (campoInvalido('linkedin_url')) { <small>Este campo es obligatorio.</small> }
+            </label>
+
+            <label>
+              Disponibilidad
+              <input type="text" formControlName="disponibilidad" placeholder="Disponible en las tardes" />
+              @if (campoInvalido('disponibilidad')) { <small>Este campo es obligatorio.</small> }
+            </label>
+
+            <label>
+              Descripcion breve
+              <textarea formControlName="descripcion_perfil" rows="4" placeholder="Cuenta tu experiencia y los servicios que ofreces"></textarea>
+              @if (campoInvalido('descripcion_perfil')) { <small>Este campo es obligatorio.</small> }
+            </label>
+          }
+
+          @if (!esRegistroProfesional || pasoProfesional === 2) {
+            <label class="terminos">
+              <input type="checkbox" formControlName="terminos" />
+              Acepto los terminos y la politica de privacidad.
+            </label>
+          }
+
+          <div class="auth-form__acciones">
+            @if (esRegistroProfesional && pasoProfesional === 2) {
+              <button class="boton boton--neutro" type="button" (click)="retrocederProfesional()">Atras</button>
+            }
+
+            @if (esRegistroProfesional && pasoProfesional === 1) {
+              <button class="boton boton--primario" type="button" (click)="avanzarProfesional()">Continuar</button>
+            } @else {
+              <button class="boton boton--primario" type="submit" [disabled]="cargando">
+                {{ cargando ? 'Enviando...' : 'Crear cuenta' }}
+              </button>
+            }
+          </div>
+
+          @if (!esRegistroProfesional || pasoProfesional === 2) {
+            <div class="auth-social">
+              <div class="auth-social__separador">
+                <span>o continua con</span>
+              </div>
+              <div class="boton-google" #googleButton></div>
+            </div>
+          }
+        </form>
+      } @else {
+        <form class="auth-form" [formGroup]="loginForm" (ngSubmit)="enviarLogin()">
+          <label>
+            Correo electronico
+            <input type="email" formControlName="correo" placeholder="tu@correo.com" />
+            @if (campoInvalido('correo')) { <small>Ingresa un correo valido.</small> }
+          </label>
+
+          <label>
+            Contrasena
+            <input type="password" formControlName="contrasena" placeholder="Tu contrasena" />
+            @if (campoInvalido('contrasena')) { <small>Ingresa tu contrasena.</small> }
+          </label>
+
+          <button class="boton boton--primario" type="submit" [disabled]="cargando">
+            {{ cargando ? 'Ingresando...' : 'Iniciar sesion' }}
+          </button>
+
+          <div class="auth-social">
+            <div class="auth-social__separador">
+              <span>o continua con</span>
+            </div>
+            <div class="boton-google" #googleButton></div>
+          </div>
+        </form>
+      }
+
+      @if (mensaje) {
+        <p class="alerta alerta--exito">{{ mensaje }}</p>
+      }
+
+      @if (error) {
+        <p class="alerta alerta--error">{{ error }}</p>
+      }
+    </section>
+  </section>
+</main>

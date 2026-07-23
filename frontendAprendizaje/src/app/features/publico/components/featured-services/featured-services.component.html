@@ -65,7 +65,7 @@
               <strong>Desde ${{ servicio.precio }}</strong>
             </div>
 
-            <a class="tarjeta-servicio__accion" href="#registro">Solicitar servicio</a>
+            <a class="tarjeta-servicio__accion" routerLink="/auth" [queryParams]="{ modo: 'registro', tipo: 'estudiante' }">Solicitar servicio</a>
           </article>
         } @empty {
           <p class="estado-vacio">No hay servicios destacados disponibles por ahora.</p>

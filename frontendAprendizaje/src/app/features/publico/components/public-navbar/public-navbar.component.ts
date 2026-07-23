@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ServicioDestacado } from '../../../services/inicio-publico/publico.service';
+import { RouterLink } from '@angular/router';
+import { ServicioDestacado } from '../../services/publico.service';
 
 @Component({
   selector: 'app-public-navbar',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './public-navbar.component.html',
   styleUrl: './public-navbar.component.scss'
 })

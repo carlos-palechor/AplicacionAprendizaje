@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CategoriaPublica, EstadisticasPublicas } from '../../../services/inicio-publico/publico.service';
+import { CategoriaPublica, EstadisticasPublicas } from '../../services/publico.service';
 
 @Component({
   selector: 'app-public-hero',

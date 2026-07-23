@@ -1,0 +1,247 @@
+.auth-page {
+  min-height: 100vh;
+  padding: 34px;
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 241, 38, 0.22), transparent 18%),
+    linear-gradient(135deg, #1238ff 0%, #7829ef 54%, #b32de0 100%);
+}
+
+.auth-card {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.95fr) minmax(360px, 1.05fr);
+  max-width: 1120px;
+  min-height: calc(100vh - 68px);
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: 0 28px 70px rgba(8, 12, 35, 0.24);
+}
+
+.auth-card__marca {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 42px;
+  color: #fff;
+  background:
+    linear-gradient(rgba(18, 56, 255, 0.12), rgba(179, 45, 224, 0.2)),
+    linear-gradient(145deg, #1238ff 0%, #722df0 58%, #b32de0 100%);
+}
+
+.auth-card__marca .marca {
+  color: #fff;
+}
+
+.auth-card__marca .marca__icono {
+  background: url('/images/logo-apoyo.png') center / cover no-repeat, #fff;
+  box-shadow: 0 10px 22px rgba(8, 12, 35, 0.18);
+}
+
+.auth-card__mensaje {
+  max-width: 420px;
+}
+
+.auth-card__mensaje span,
+.auth-card__datos span {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-weight: 800;
+}
+
+.auth-card__mensaje span {
+  display: inline-flex;
+  margin-bottom: 18px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.auth-card__mensaje h1 {
+  margin: 0 0 16px;
+  font-size: clamp(34px, 4vw, 54px);
+  line-height: 1.02;
+}
+
+.auth-card__mensaje p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.auth-card__datos {
+  display: grid;
+  gap: 12px;
+}
+
+.auth-card__datos span {
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+}
+
+.auth-panel {
+  align-self: center;
+  width: min(100%, 560px);
+  margin: 0 auto;
+  padding: 42px;
+}
+
+.auth-panel__encabezado span {
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.auth-panel__encabezado h2 {
+  margin: 8px 0;
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.08;
+}
+
+.auth-panel__encabezado p {
+  margin: 0 0 24px;
+  color: var(--color-muted);
+}
+
+.selector,
+.tipo-cuenta,
+.auth-form,
+.auth-form__grid {
+  display: grid;
+}
+
+.selector,
+.tipo-cuenta {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.selector {
+  padding: 5px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: #f4f6ff;
+}
+
+.selector button,
+.tipo-cuenta button {
+  min-height: 46px;
+  border: 0;
+  border-radius: 999px;
+  color: var(--color-muted);
+  background: transparent;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.selector button.activo {
+  color: var(--color-primary);
+  background: #fff;
+  box-shadow: 0 8px 18px rgba(16, 18, 37, 0.08);
+}
+
+.tipo-cuenta button {
+  gap: 4px;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  background: #fff;
+}
+
+.tipo-cuenta button.activo {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  background: #f5f7ff;
+}
+
+.auth-form {
+  gap: 16px;
+}
+
+.auth-form__grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.auth-form label {
+  display: grid;
+  gap: 7px;
+  color: #282b3f;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.auth-form input,
+.auth-form textarea {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 13px 14px;
+  color: var(--color-text);
+  background: #fff;
+  outline: none;
+}
+
+.auth-form input:focus,
+.auth-form textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(18, 56, 255, 0.1);
+}
+
+.auth-form small {
+  color: #d52727;
+  font-weight: 700;
+}
+
+.terminos {
+  display: flex !important;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px !important;
+  color: var(--color-muted) !important;
+}
+
+.terminos input {
+  width: auto;
+}
+
+.auth-form__acciones {
+  display: flex;
+  gap: 12px;
+}
+
+.auth-form__acciones .boton,
+.auth-form > .boton {
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+}
+
+.boton--neutro {
+  color: var(--color-primary);
+  border: 1px solid var(--color-border) !important;
+  background: #fff;
+}
+
+.alerta {
+  margin: 18px 0 0;
+  padding: 18px 20px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.alerta--exito {
+  color: #0f6b35;
+  background: #e9f8ee;
+}
+
+.alerta--error {
+  color: #9b1b1b;
+  background: #fff0f0;
+}

@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { ProfesionalDestacado } from '../../../services/inicio-publico/publico.service';
+import { RouterLink } from '@angular/router';
+import { ProfesionalDestacado } from '../../services/publico.service';
 
 @Component({
   selector: 'app-featured-professionals',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './featured-professionals.component.html',
   styleUrl: './featured-professionals.component.scss'
 })

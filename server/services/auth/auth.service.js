@@ -1,36 +1,19 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { Administrador, Estudiante, Profesional, Rol } = require('../../models/associations');
-
-const TIPOS_CUENTA = {
-  estudiante: {
-    modelo: Estudiante,
-    idCampo: 'id_estudiante',
-    idRol: 1,
-    nombreRol: 'estudiante',
-    mensajeRegistro: 'Estudiante registrado correctamente',
-    mensajeRolNoEncontrado: 'No se encontro el rol estudiante en la base de datos',
-    mensajeRolNoPermitido: 'Este endpoint solo permite cuentas de estudiante'
-  },
-  profesional: {
-    modelo: Profesional,
-    idCampo: 'id_profesional',
-    idRol: 2,
-    nombreRol: 'profesional',
-    mensajeRegistro: 'Profesional registrado correctamente',
-    mensajeRolNoEncontrado: 'No se encontro el rol profesional en la base de datos',
-    mensajeRolNoPermitido: 'Este endpoint solo permite cuentas profesionales'
-  },
-  administrador: {
-    modelo: Administrador,
-    idCampo: 'id_administrador',
-    idRol: 3,
-    nombreRol: 'administrador',
-    mensajeRegistro: 'Administrador registrado correctamente',
-    mensajeRolNoEncontrado: 'No se encontro el rol administrador en la base de datos',
-    mensajeRolNoPermitido: 'Este endpoint solo permite cuentas administradoras'
-  }
-};
+const { Rol } = require('../../models/associations');
+const { TIPOS_CUENTA } = require('./auth.config');
+const {
+  crearCuenta,
+  existeCorreoEnOtraCuenta,
+  obtenerCuentaPorCorreo,
+  obtenerCuentaSegura,
+  validarCorreoDisponible
+} = require('./auth-account.service');
+const { validarTokenGoogle } = require('./google-token.service');
+const {
+  separarNombreGoogle,
+  validarDatosProfesionalGoogle
+} = require('./google-profile.service');
 
 function obtenerConfigCuenta(tipoCuenta) {
   const configCuenta = TIPOS_CUENTA[tipoCuenta];
@@ -42,12 +25,6 @@ function obtenerConfigCuenta(tipoCuenta) {
   }
 
   return configCuenta;
-}
-
-function obtenerCuentaSegura(cuenta) {
-  const cuentaPlana = cuenta.toJSON();
-  delete cuentaPlana.contrasena;
-  return cuentaPlana;
 }
 
 async function obtenerRolPorNombre(nombreRol) {
@@ -62,64 +39,6 @@ async function obtenerRolPorNombre(nombreRol) {
   }
 
   return rol;
-}
-
-async function validarCorreoDisponible(correo) {
-  const estudianteExistente = await Estudiante.findOne({
-    where: { correo }
-  });
-  const profesionalExistente = await Profesional.findOne({
-    where: { correo }
-  });
-  const administradorExistente = await Administrador.findOne({
-    where: { correo }
-  });
-
-  if (estudianteExistente || profesionalExistente || administradorExistente) {
-    const error = new Error();
-    error.code = 'EMAIL_EXISTS';
-    throw error;
-  }
-}
-
-async function crearCuenta(data, configCuenta) {
-  const {
-    nombres,
-    apellidos,
-    correo,
-    contrasena,
-    universidad,
-    titulo_profesional,
-    especializacion,
-    descripcion_perfil,
-    linkedin_url,
-    disponibilidad,
-    verificado
-  } = data;
-  const contrasenaHasheada = await bcrypt.hash(contrasena, 10);
-
-  const datosCuenta = {
-    id_rol: configCuenta.idRol,
-    nombres,
-    apellidos,
-    correo,
-    contrasena: contrasenaHasheada
-  };
-
-  if (configCuenta.nombreRol === 'profesional') {
-    Object.assign(datosCuenta, {
-      universidad: universidad || null,
-      titulo_profesional: titulo_profesional || null,
-      especializacion: especializacion || null,
-      descripcion_perfil: descripcion_perfil || null,
-      linkedin_url: linkedin_url || null,
-      disponibilidad: disponibilidad || null,
-      verificado: verificado === undefined ? false : Boolean(verificado)
-    });
-  }
-
-  const cuenta = await configCuenta.modelo.create(datosCuenta);
-  return obtenerCuentaSegura(cuenta);
 }
 
 function prepararErrorCuenta(error, configCuenta) {
@@ -227,7 +146,58 @@ async function login(tipoCuenta, data) {
   }
 }
 
+async function registrarCuentaGoogle(data, perfilGoogle, configCuenta) {
+  const { nombres, apellidos } = separarNombreGoogle(perfilGoogle);
+  const contrasenaTemporal = await bcrypt.hash(`google:${perfilGoogle.sub}:${Date.now()}`, 10);
+  const datosCuenta = {
+    ...data,
+    nombres,
+    apellidos,
+    correo: perfilGoogle.email,
+    contrasena: contrasenaTemporal
+  };
+
+  if (configCuenta.nombreRol === 'profesional') {
+    validarDatosProfesionalGoogle(data);
+  }
+
+  await validarRolRegistro(configCuenta);
+  return crearCuenta(datosCuenta, configCuenta);
+}
+
+async function google(tipoCuenta, data) {
+  const configCuenta = obtenerConfigCuenta(tipoCuenta);
+  const perfilGoogle = await validarTokenGoogle(data.id_token);
+  const cuentaExistente = await obtenerCuentaPorCorreo(perfilGoogle.email, configCuenta);
+  let cuenta = cuentaExistente;
+  let statusCode = 200;
+  let message = 'Inicio de sesion con Google exitoso';
+
+  if (!cuenta) {
+    if (await existeCorreoEnOtraCuenta(perfilGoogle.email, configCuenta)) {
+      const error = new Error();
+      error.code = 'GOOGLE_ACCOUNT_ROLE_CONFLICT';
+      throw error;
+    }
+
+    await registrarCuentaGoogle(data, perfilGoogle, configCuenta);
+    cuenta = await obtenerCuentaPorCorreo(perfilGoogle.email, configCuenta);
+    statusCode = 201;
+    message = `${configCuenta.mensajeRegistro} con Google`;
+  }
+
+  return {
+    statusCode,
+    message,
+    data: {
+      [configCuenta.nombreRol]: obtenerCuentaSegura(cuenta),
+      token: generarToken(cuenta, configCuenta)
+    }
+  };
+}
+
 module.exports = {
   registrar,
-  login
+  login,
+  google
 };

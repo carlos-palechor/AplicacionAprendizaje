@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { forkJoin } from 'rxjs';
-import { FeaturedProfessionalsComponent } from '../../components/inicio-publico/featured-professionals/featured-professionals.component';
-import { FeaturedServicesComponent } from '../../components/inicio-publico/featured-services/featured-services.component';
-import { HowItWorksComponent } from '../../components/inicio-publico/how-it-works/how-it-works.component';
-import { PublicCtaComponent } from '../../components/inicio-publico/public-cta/public-cta.component';
-import { PublicFooterComponent } from '../../components/inicio-publico/public-footer/public-footer.component';
-import { PublicHeroComponent } from '../../components/inicio-publico/public-hero/public-hero.component';
-import { PublicNavbarComponent } from '../../components/inicio-publico/public-navbar/public-navbar.component';
+import { FeaturedProfessionalsComponent } from '../../components/featured-professionals/featured-professionals.component';
+import { FeaturedServicesComponent } from '../../components/featured-services/featured-services.component';
+import { HowItWorksComponent } from '../../components/how-it-works/how-it-works.component';
+import { PublicCtaComponent } from '../../components/public-cta/public-cta.component';
+import { PublicFooterComponent } from '../../components/public-footer/public-footer.component';
+import { PublicHeroComponent } from '../../components/public-hero/public-hero.component';
+import { PublicNavbarComponent } from '../../components/public-navbar/public-navbar.component';
 import {
   CategoriaPublica,
   EstadisticasPublicas,
   ProfesionalDestacado,
   PublicoService,
   ServicioDestacado
-} from '../../services/inicio-publico/publico.service';
+} from '../../services/publico.service';
 
 @Component({
   selector: 'app-inicio-publico',

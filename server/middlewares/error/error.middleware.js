@@ -152,6 +152,22 @@ const ERROR_CATALOG = {
   JWT_SECRET_NOT_DEFINED: {
     statusCode: 500,
     message: 'Configuracion JWT no definida.'
+  },
+  GOOGLE_CLIENT_ID_NOT_DEFINED: {
+    statusCode: 500,
+    message: 'Configuracion de Google no definida.'
+  },
+  GOOGLE_TOKEN_INVALID: {
+    statusCode: 401,
+    message: 'Token de Google invalido.'
+  },
+  GOOGLE_EMAIL_NOT_VERIFIED: {
+    statusCode: 401,
+    message: 'El correo de Google no esta verificado.'
+  },
+  GOOGLE_ACCOUNT_ROLE_CONFLICT: {
+    statusCode: 409,
+    message: 'Este correo ya existe con otro tipo de cuenta.'
   }
 };
 

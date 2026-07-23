@@ -113,7 +113,23 @@ function validarLoginAuth(tipoCuenta, data) {
   return errores;
 }
 
+function validarGoogleAuth(tipoCuenta, data) {
+  const errores = validarTipoCuenta(tipoCuenta);
+  const body = data || {};
+
+  if (errores.length > 0) {
+    return errores;
+  }
+
+  if (!body.id_token || typeof body.id_token !== 'string' || body.id_token.trim() === '') {
+    errores.push('El campo id_token es obligatorio');
+  }
+
+  return errores;
+}
+
 module.exports = {
   validarRegistroAuth,
-  validarLoginAuth
+  validarLoginAuth,
+  validarGoogleAuth
 };

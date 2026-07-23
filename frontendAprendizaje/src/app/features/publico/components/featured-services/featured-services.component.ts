@@ -10,12 +10,13 @@ import {
   SimpleChanges,
   ViewChildren
 } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ServicioDestacado } from '../../../services/inicio-publico/publico.service';
+import { ServicioDestacado } from '../../services/publico.service';
 
 @Component({
   selector: 'app-featured-services',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './featured-services.component.html',
   styleUrl: './featured-services.component.scss'
 })

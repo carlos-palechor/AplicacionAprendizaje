@@ -27,7 +27,7 @@
             <strong>{{ servicio.titulo }}</strong>
             <span>
               {{ servicio.categoria_servicio.nombre_categoria }}
-              ·
+              -
               {{ servicio.profesional.nombres }} {{ servicio.profesional.apellidos }}
             </span>
           </button>
@@ -38,7 +38,7 @@
 
   <nav class="navbar-publica__acciones" aria-label="Navegacion publica">
     <a href="#servicios">Explorar</a>
-    <a href="#registro">Iniciar Sesion</a>
-    <a class="boton boton--primario" href="#registro">Soy profesional</a>
+    <a routerLink="/auth" [queryParams]="{ modo: 'login' }">Iniciar Sesion</a>
+    <a class="boton boton--primario" routerLink="/auth" [queryParams]="{ modo: 'registro', tipo: 'profesional' }">Soy profesional</a>
   </nav>
 </header>

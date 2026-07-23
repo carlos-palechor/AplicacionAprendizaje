@@ -1,7 +1,8 @@
 const authService = require('../../services/auth/auth.service');
 const {
   validarRegistroAuth,
-  validarLoginAuth
+  validarLoginAuth,
+  validarGoogleAuth
 } = require('../../validators/auth/auth.validator');
 const {
   asyncHandler,
@@ -27,7 +28,17 @@ async function login(req, res) {
   return responderExito(res, 200, resultado.message, resultado.data);
 }
 
+async function google(req, res) {
+  const errores = validarGoogleAuth(req.params.tipoCuenta, req.body);
+  validarPeticion(errores);
+
+  const resultado = await authService.google(req.params.tipoCuenta, req.body);
+
+  return responderExito(res, resultado.statusCode, resultado.message, resultado.data);
+}
+
 module.exports = {
   registrar: asyncHandler(registrar),
-  login: asyncHandler(login)
+  login: asyncHandler(login),
+  google: asyncHandler(google)
 };

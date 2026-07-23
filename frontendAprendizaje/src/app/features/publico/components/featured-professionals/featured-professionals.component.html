@@ -4,7 +4,7 @@
       <h2>Profesionales disponibles para ayudarte</h2>
       <p>Conoce algunos perfiles activos en la plataforma</p>
     </div>
-    <a href="#registro">Ver todos los profesionales</a>
+    <a routerLink="/auth" [queryParams]="{ modo: 'registro', tipo: 'estudiante' }">Ver todos los profesionales</a>
   </div>
 
   <div class="profesionales-destacados__lista">
@@ -34,7 +34,7 @@
           }
         </div>
 
-        <a class="tarjeta-profesional__accion" href="#registro">Ver Perfil</a>
+        <a class="tarjeta-profesional__accion" routerLink="/auth" [queryParams]="{ modo: 'registro', tipo: 'estudiante' }">Ver Perfil</a>
       </article>
     } @empty {
       <p class="estado-vacio">No hay profesionales destacados disponibles por ahora.</p>

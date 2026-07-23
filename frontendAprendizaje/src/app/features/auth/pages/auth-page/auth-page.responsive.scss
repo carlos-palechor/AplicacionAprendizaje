@@ -1,0 +1,28 @@
+@media (max-width: 860px) {
+  .auth-page {
+    padding: 0;
+  }
+
+  .auth-card {
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+    border-radius: 0;
+  }
+
+  .auth-card__marca {
+    gap: 34px;
+    padding: 28px 22px;
+  }
+
+  .auth-panel {
+    padding: 30px 22px 40px;
+  }
+}
+
+@media (max-width: 560px) {
+  .auth-form__grid,
+  .selector,
+  .tipo-cuenta {
+    grid-template-columns: 1fr;
+  }
+}
